@@ -6,12 +6,7 @@ pipeline {
     }
 
     stages {
-        // stage ('Cloning Shipping Repository') {
-        //     steps {
-        //         git 'https://github.com/imjitthu/nexus.git'
-        //     }
-        // }
-        stage ('Create Shipping Artifact') {
+        stage ("${env.task}") {
             steps {
                 echo "${env.task}"
                 script {
