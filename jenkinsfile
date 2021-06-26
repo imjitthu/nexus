@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-        stage ('Cloning Shipping Repository') {
-            steps {
-                git ''
-            }
-        }
+        // stage ('Cloning Shipping Repository') {
+        //     steps {
+        //         git 'https://github.com/imjitthu/nexus.git'
+        //     }
+        // }
         stage ('Create Shipping Artifact') {
             steps {
                 scrtpt {
