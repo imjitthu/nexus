@@ -1,0 +1,4 @@
+download and install Jenkins plugins:
+1: Nexus Artifact Uploader
+2: Pipeline Utilities 
+
