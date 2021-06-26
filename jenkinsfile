@@ -8,7 +8,6 @@ pipeline {
     stages {
         stage ("${env.task}") {
             steps {
-                echo "${env.task}"
                 script {
                     sh "mvn clean package"
                     sh "ls -al; pwd;"
