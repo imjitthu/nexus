@@ -9,7 +9,6 @@ pipeline {
         stage ('Create Shipping Artifact') {
             steps {
                 script {
-                    cleanWs()
                     sh "mvn clean package"
                     nexusArtifactUploader artifacts: [
                         [
@@ -28,6 +27,11 @@ pipeline {
                         version: '2.3.3.RELEASE'
                 }
             }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
