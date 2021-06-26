@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage ("${env.task}") {
+        stage ('"${env.task}"') {
             steps {
                 script {
                     sh "mvn clean package"
