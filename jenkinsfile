@@ -6,16 +6,20 @@ pipeline {
     }
 
     stages {
+        stage ('Generating Artifacts With Maven') {
+            steps {
+                sh "mvn clean package"
+            }
+        }
         stage ('Create Shipping Artifact') {
             steps {
                 script {
                     def pom = readMavenPom file:'pom.xml'
-                    sh "mvn clean package"
                     nexusArtifactUploader artifacts: [
                         [
                             artifactId: "${pom.artifactId}", 
                             classifier: '', 
-                            file: 'target/shipping-1.0.jar', 
+                            file: "target/shipping-${pom.versions}.jar", 
                             type: 'jar'
                             ]
                         ], 
