@@ -12,7 +12,7 @@ pipeline {
                 sh "mvn clean package"
             }
         }
-        stage ('Create Shipping Artifact') {
+        stage ('Uploading Artifacts to Nexus Repository') {
             steps {
                 script {
                     def pom = readMavenPom file:'pom.xml'
