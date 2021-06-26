@@ -4,7 +4,7 @@ pipeline {
     environment {
         nexus_url = "lab.jithendar.com:8081"
         app       = "shipping"
-        file      = "target/shipping-1.0.jar"
+        path      = "target"
         type      = "jar"
     }
 
@@ -21,7 +21,7 @@ pipeline {
                         [
                             artifactId: "${aid}", 
                             classifier: '', 
-                            file: "${file}", 
+                            file: "${env.path}/${env.app}-${env.ver}.${env.type}", 
                             type: "${env.type}"
                             ]
                         ], 
