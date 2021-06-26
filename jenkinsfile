@@ -21,7 +21,7 @@ pipeline {
                         [
                             artifactId: 'spring-boot-starter-parent', 
                             classifier: '', 
-                            file: 'target/*.jar', 
+                            file: 'target/sh*.jar', 
                             type: 'jar'
                             ]
                         ], 
