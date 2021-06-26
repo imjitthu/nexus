@@ -13,8 +13,8 @@ pipeline {
         // }
         stage ('Create Shipping Artifact') {
             steps {
-                scrtpt {
-                    echo "${env.task}"
+                echo "${env.task}"
+                scritpt {
                     sh "mvn clean package"
                     nexusArtifactUploader artifacts: [
                         [
