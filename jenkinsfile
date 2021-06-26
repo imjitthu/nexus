@@ -13,25 +13,22 @@ pipeline {
             steps {
                 script {
                     def pom = readMavenPom file: 'pom.xml'
-                    def ver = pom.version
-                    def gid = pom.groupId
-                    def aid = pom.artifactId
                     sh "mvn clean package"
                     nexusArtifactUploader artifacts: [
                         [
-                            artifactId: "${aid}", 
+                            artifactId: "${pom.artifactId}", 
                             classifier: '', 
                             file: "${env.path}/${env.app}-${env.ver}.${env.type}", 
                             type: "${env.type}"
                             ]
                         ], 
                         credentialsId: 'nexus', 
-                        groupId: "${gid}", 
+                        groupId: "${pom.groupId}", 
                         nexusUrl: "${env.nexus_url}", 
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
                         repository: "${app}", 
-                        version: "${ver}"
+                        version: "${pom.version}"
                 }
             }
         }
