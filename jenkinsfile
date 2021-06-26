@@ -21,7 +21,7 @@ pipeline {
                         [
                             artifactId: "${pom.artifactId}", 
                             classifier: '', 
-                            file: "target/${env.app}-${pom.versions}.${env.type}", 
+                            file: "target/${env.app}-${pom.version}.${env.type}", 
                             type: "${env.type}"
                             ]
                         ], 
