@@ -2,34 +2,30 @@ pipeline {
     agent any
 
     environment {
-        nexus_url = "lab.jithendar.com:8081"
-        app       = "shipping"
-        path      = "target"
-        type      = "jar"
+        task = "Uploading artifacts to nexus"
     }
 
     stages {
         stage ('Create Shipping Artifact') {
             steps {
                 script {
-                    def pom = readMavenPom file: 'pom.xml'
-                    readMavenPom file: 'pom.xml'
+                    def pom = readMavenPom file:'pom.xml'
                     sh "mvn clean package"
                     nexusArtifactUploader artifacts: [
                         [
                             artifactId: "${pom.artifactId}", 
                             classifier: '', 
-                            file: "${env.path}/${env.app}-${env.ver}.${env.type}", 
-                            type: "${env.type}"
+                            file: 'target/shipping-1.0.jar', 
+                            type: 'jar'
                             ]
                         ], 
                         credentialsId: 'nexus', 
-                        groupId: "${pom.groupId}", 
-                        nexusUrl: "${env.nexus_url}", 
+                        groupId: 'org.springframework.boot', 
+                        nexusUrl: 'lab.jithendar.com:8081', 
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
-                        repository: "${app}", 
-                        version: "${pom.version}"
+                        repository: 'shipping', 
+                        version: "${pom.version}"'
                 }
             }
         }
