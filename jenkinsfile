@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        task = "Uploading artifacts to nexus"
+        app = "shipping"
+        type = "jar"
     }
 
     stages {
@@ -19,8 +20,8 @@ pipeline {
                         [
                             artifactId: "${pom.artifactId}", 
                             classifier: '', 
-                            file: "target/shipping-${pom.versions}.jar", 
-                            type: 'jar'
+                            file: "target/${env.app}-${pom.versions}.${env.type}", 
+                            type: "${env.type}"
                             ]
                         ], 
                         credentialsId: 'nexus', 
@@ -28,7 +29,7 @@ pipeline {
                         nexusUrl: 'lab.jithendar.com:8081', 
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
-                        repository: 'shipping', 
+                        repository: "${env.type}", 
                         version: "${pom.version}"'
                 }
             }
