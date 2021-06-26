@@ -18,17 +18,19 @@ pipeline {
                     sh "mvn clean package"
                     nexusArtifactUploader artifacts: [
                         [
-                            artifactId: 'artifact_ID', 
-                            classifier: '', file: 'target/*.jar', 
+                            artifactId: 'spring-boot-starter-parent', 
+                            classifier: '', 
+                            file: 'target/*.jar', 
                             type: 'jar'
                             ]
                         ], 
-                        credentialsId: 'nexus', groupId: 'group_ID', 
+                        credentialsId: 'nexus', 
+                        groupId: 'org.springframework.boot', 
                         nexusUrl: 'lab.jithendar.com:8081', 
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
                         repository: 'shipping', 
-                        version: 'Version_num'
+                        version: '2.3.3.RELEASE'
                 }
             }
         }
