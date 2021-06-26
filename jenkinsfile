@@ -13,6 +13,7 @@ pipeline {
             steps {
                 script {
                     def pom = readMavenPom file: 'pom.xml'
+                    readMavenPom file: 'pom.xml'
                     sh "mvn clean package"
                     nexusArtifactUploader artifacts: [
                         [
