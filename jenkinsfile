@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    environment {
+        task = "Uploading artifacts to nexus"
+    }
+
+    stages {
+        stage ('Create Shipping ') {
+            steps {
+                scrtpt {
+                    echo "${env.task}"
+                    sh "mvn clean package"
+                    nexusArtifactUploader artifacts: [
+                        [
+                            artifactId: 'artifact_ID', 
+                            classifier: '', file: 'target/*.jar', 
+                            type: 'jar'
+                            ]
+                        ], 
+                        credentialsId: 'nexus', groupId: 'group_ID', 
+                        nexusUrl: 'lab.jithendar.com:8081', nexusVersion: 'nexus3', 
+                        protocol: 'http', 
+                        repository: 'shipping', 
+                        version: 'Version_num'
+                }
+            }
+        }
+    }
+}
