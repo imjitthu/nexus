@@ -6,7 +6,12 @@ pipeline {
     }
 
     stages {
-        stage ('Create Shipping ') {
+        stage ('Cloning Shipping Repository') {
+            steps {
+                git ''
+            }
+        }
+        stage ('Create Shipping Artifact') {
             steps {
                 scrtpt {
                     echo "${env.task}"
@@ -19,7 +24,8 @@ pipeline {
                             ]
                         ], 
                         credentialsId: 'nexus', groupId: 'group_ID', 
-                        nexusUrl: 'lab.jithendar.com:8081', nexusVersion: 'nexus3', 
+                        nexusUrl: 'lab.jithendar.com:8081', 
+                        nexusVersion: 'nexus3', 
                         protocol: 'http', 
                         repository: 'shipping', 
                         version: 'Version_num'
