@@ -9,34 +9,34 @@ pipeline {
     stages {
         stage ('Donwload & Create Artifacts With Maven') {
             steps {
-                sh "curl -s https://github.com/imjitthu/shipping_docker/archive/refs/heads/master.zip"
+                sh "curl https://github.com/imjitthu/shipping_docker/archive/refs/heads/master.zip"
                 sh "ls -al"
                 sh "unzip shipping_docker-master.zip"
                 sh "mv shipping_docker-master/* ."
             }
         }
-        stage ('Uploading Artifacts to Nexus Repository') {
-            steps {
-                script {
-                    def pom = readMavenPom file:'pom.xml'
-                    nexusArtifactUploader artifacts: [
-                        [
-                            artifactId: "${pom.artifactId}", 
-                            classifier: '', 
-                            file: "target/${env.app}-${pom.version}.${env.type}", 
-                            type: "${env.type}"
-                            ]
-                        ], 
-                        credentialsId: 'nexus', 
-                        groupId: "${pom.groupId}", 
-                        nexusUrl: 'lab.jithendar.com:8081', 
-                        nexusVersion: 'nexus3', 
-                        protocol: 'http', 
-                        repository: "${env.app}", 
-                        version: "${pom.version}"
-                }
-            }
-        }
+        // stage ('Uploading Artifacts to Nexus Repository') {
+        //     steps {
+        //         script {
+        //             def pom = readMavenPom file:'pom.xml'
+        //             nexusArtifactUploader artifacts: [
+        //                 [
+        //                     artifactId: "${pom.artifactId}", 
+        //                     classifier: '', 
+        //                     file: "target/${env.app}-${pom.version}.${env.type}", 
+        //                     type: "${env.type}"
+        //                     ]
+        //                 ], 
+        //                 credentialsId: 'nexus', 
+        //                 groupId: "${pom.groupId}", 
+        //                 nexusUrl: 'lab.jithendar.com:8081', 
+        //                 nexusVersion: 'nexus3', 
+        //                 protocol: 'http', 
+        //                 repository: "${env.app}", 
+        //                 version: "${pom.version}"
+        //         }
+        //     }
+        // }
     }
     // post {
     //     always {
