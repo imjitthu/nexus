@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage ('Generating Artifacts With Maven') {
+        stage ('Donwload & Create Artifacts With Maven') {
             steps {
                 sh "mvn clean package"
             }
