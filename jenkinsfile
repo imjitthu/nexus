@@ -11,36 +11,35 @@ pipeline {
             steps {
                 sh "curl -L -o shipping.zip https://github.com/imjitthu/shipping_docker/archive/refs/heads/master.zip"
                 sh "unzip shipping.zip"
-                sh "ls -al"
                 sh "mv shipping_docker-master/* ."
             }
         }
-        // stage ('Uploading Artifacts to Nexus Repository') {
-        //     steps {
-        //         script {
-        //             def pom = readMavenPom file:'pom.xml'
-        //             nexusArtifactUploader artifacts: [
-        //                 [
-        //                     artifactId: "${pom.artifactId}", 
-        //                     classifier: '', 
-        //                     file: "target/${env.app}-${pom.version}.${env.type}", 
-        //                     type: "${env.type}"
-        //                     ]
-        //                 ], 
-        //                 credentialsId: 'nexus', 
-        //                 groupId: "${pom.groupId}", 
-        //                 nexusUrl: 'lab.jithendar.com:8081', 
-        //                 nexusVersion: 'nexus3', 
-        //                 protocol: 'http', 
-        //                 repository: "${env.app}", 
-        //                 version: "${pom.version}"
-        //         }
-        //     }
-        // }
+        stage ('Uploading Artifacts to Nexus Repository') {
+            steps {
+                script {
+                    def pom = readMavenPom file:'pom.xml'
+                    nexusArtifactUploader artifacts: [
+                        [
+                            artifactId: "${pom.artifactId}", 
+                            classifier: '', 
+                            file: "target/${env.app}-${pom.version}.${env.type}", 
+                            type: "${env.type}"
+                            ]
+                        ], 
+                        credentialsId: 'nexus', 
+                        groupId: "${pom.groupId}", 
+                        nexusUrl: 'lab.jithendar.com:8081', 
+                        nexusVersion: 'nexus3', 
+                        protocol: 'http', 
+                        repository: "${env.app}", 
+                        version: "${pom.version}"
+                }
+            }
+        }
     }
-    // post {
-    //     always {
-    //         cleanWs()
-    //     }
-    // }
+    post {
+        always {
+            cleanWs()
+        }
+    }
 }
