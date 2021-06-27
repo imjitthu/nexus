@@ -15,7 +15,7 @@ pipeline {
             }
         }
         stage ('Create Artifacts With Maven') {
-            stesp {
+            steps {
                 sh "mvn clean install"
             }
         }
