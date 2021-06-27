@@ -7,11 +7,16 @@ pipeline {
     }
 
     stages {
-        stage ('Donwload & Create Artifacts With Maven') {
+        stage ('Donwload Dependency files') {
             steps {
                 sh "curl -L -o shipping.zip https://github.com/imjitthu/shipping_docker/archive/refs/heads/master.zip"
                 sh "unzip shipping.zip"
                 sh "mv shipping_docker-master/* ."
+            }
+        }
+        stage ('Create Artifacts With Maven') {
+            stesp {
+                sh "mvn clean install"
             }
         }
         stage ('Uploading Artifacts to Nexus Repository') {
