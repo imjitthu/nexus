@@ -10,7 +10,7 @@ pipeline {
         stage ('Donwload & Create Artifacts With Maven') {
             steps {
                 sh "curl -s https://github.com/imjitthu/shipping_docker/archive/refs/heads/master.zip"
-                sh "unzip master.zip"
+                sh "unzip shipping*.zip"
                 sh "mv shipping_docker-master/* ."
                 sh "ls -al"
             }
